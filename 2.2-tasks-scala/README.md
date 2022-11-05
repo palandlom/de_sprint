@@ -15,5 +15,5 @@ Build and run jar:
 ```bash
 cd ./2.2-tasks-scala
 sbt assembly
-java -jar /target/scala-3.1.3/tasks-assembly-0.1.0-SNAPSHOT.jar 
+java -jar ./target/scala-3.1.3/tasks-assembly-0.1.0-SNAPSHOT.jar 
 ```
