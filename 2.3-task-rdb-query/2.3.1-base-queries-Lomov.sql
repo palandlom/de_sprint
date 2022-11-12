@@ -15,6 +15,13 @@ CREATE TYPE public.qualification_level AS ENUM
 ALTER TYPE public.qualification_level
     OWNER TO postgres;
 
+CREATE TYPE public.quarter_grades AS ENUM
+    ('A', 'B', 'C', 'D', 'E');
+
+ALTER TYPE public.quarter_grades
+    OWNER TO postgres;
+
+
 CREATE TABLE IF NOT EXISTS public."Employee"
 (
     "Name" char(40) NOT NULL,
@@ -24,7 +31,7 @@ CREATE TABLE IF NOT EXISTS public."Employee"
     "WorkStartDate" date NOT NULL,
     "Position" char(40),
     "QLevel" public.qualification_level NOT NULL,
-    "SLevel" char(40),
+    "SLevel" int DEFAULT 0 NOT null,
     "DepartmentId" char(40) NOT NULL,
     "WithDrivingLic" boolean,
     "EmpId" char(40) NOT NULL,
@@ -62,11 +69,6 @@ ALTER TABLE IF EXISTS public."Department"
 -- Создайте таблицу, в которой для каждого сотрудника будут его оценки за каждый квартал. Диапазон оценок от A – самая высокая, до E – самая низкая.
 
 
-CREATE TYPE public.quarter_grades AS ENUM
-    ('A', 'B', 'C', 'D', 'E');
-
-ALTER TYPE public.quarter_grades
-    OWNER TO postgres;
 
 
 CREATE TABLE IF NOT EXISTS public."QGrade"
@@ -189,16 +191,18 @@ true,
 'td01')
 returning "EmpId";
 
-INSERT INTO public."Department" (
-"DepId", "Name", "HeaderId", "EmpQty") VALUES (
-'devdep1', 'Отдел разработки Бета', 'mm01', '2')
- returning "DepId";
 
 
  INSERT INTO public."Department" (
 "DepId", "Name", "HeaderId", "EmpQty") VALUES (
 'devdep1', 'Отдел разработки Альфа', 'jp05', '3')
  returning "DepId";
+
+ INSERT INTO public."Department" (
+"DepId", "Name", "HeaderId", "EmpQty") VALUES (
+'devdep2', 'Отдел разработки Бета', 'mm01', '2')
+ returning "DepId";
+
 
 
 -- 5. Ваша команда расширяется и руководство запланировало открыть новый отдел – отдел Интеллектуального анализа данных. 
@@ -296,7 +300,6 @@ INSERT INTO public."QGrade" (
 VALUES (
 'my01','D','B','D','C')
 returning "EmpId";
-
 
 
 
