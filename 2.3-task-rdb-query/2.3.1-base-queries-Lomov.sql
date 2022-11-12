@@ -1,6 +1,3 @@
-mysecretpassword
-
-psql -U postgres
 -- -- -- -- -- 
 -- Запросы
 -- -- -- -- -- 
